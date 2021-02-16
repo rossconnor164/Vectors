@@ -1,33 +1,38 @@
-// Complete the hourglassSum function below.
-int hourglassSum(vector<vector<int>> arr) {
+// Complete the minimumBribes function below.
+void minimumBribes(vector<int> q) {
     
-    int local_sum = 0;
-    int max_sum = -65535;
-
-    for (int i = 0; i < 4; i++)
+    int position = 1;
+    int bribes = 0;
+    bool chaotic = false;
+    
+    for (int i = 0; i < q.size(); i++)
     {
-       for (int j = 0; j < 4; j++)
+        if (q[i] > position + 2)
         {
-            local_sum += arr[i][j];
-            local_sum += arr[i][j+1];
-            local_sum += arr[i][j+2];
-            
-            local_sum += arr[i+1][j+1];
-            
-            local_sum += arr[i+2][j];
-            local_sum += arr[i+2][j+1];
-            local_sum += arr[i+2][j+2];
-            
-            if (local_sum > max_sum)
+            std::cout<<"Too chaotic\n";
+            chaotic = true;
+            break;
+        }
+
+        for(int j = q[i]-2; j < position - 1; j++)
+        {
+            if (q[j] > q[i])
             {
-                max_sum = local_sum;
+                bribes++;
             }
-            local_sum = 0;
-        } 
+        }
+
+        
+        position ++;
+
     }
-    
-    return max_sum;
+
+    if (chaotic == false)
+    {
+    std::cout<<bribes <<"\n";
+    }
 
 }
 
-//https://www.hackerrank.com/challenges/2d-array/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=arrays
+
+//https://www.hackerrank.com/challenges/new-year-chaos/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=arrays
